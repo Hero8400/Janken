@@ -11,25 +11,27 @@ def main():
     dic = {"a": "グー", "b": "チョキ", "c": "パー"}
 
     print("誰と戦う？")
-    print("n=一般人 h=ケイスケ・ホンダ")
+    print(" ".join(list(map(lambda x: f"{x[0]}={x[1]}", player_dic.items()))))
     player = input('>>> ')
     player = player.lower()
     if player not in player_dic:
-        print("n,h から選んでね")
+        separator = ","
+        print(f"{separator.join(player_dic.keys())} から選んでね")
         return
 
     print("じゃんけん！！")
-    print("a=グー b=チョキ c=パー a,b,cから選んでね")
+    print(" ".join(list(map(lambda x: f"{x[0]}={x[1]}", dic.items()))))
     user = input('>>> ')
     user = user.lower()
     if user not in dic:
-        print("a,b,c から選んでね")
+        separator = ","
+        print(f"{separator.join(dic.keys())} から選んでね")
         return
 
     player_choice = player_dic[player]
     user_choice = dic[user]
 
-    choice_list = ["a", "b", "c"]
+    choice_list = list(dic.keys())
     pc = dic[random.choice(choice_list)]
 
     draw = 'DRAW'

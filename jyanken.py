@@ -2,32 +2,45 @@
 
 import random
 
-player_dic = {"n": "一般人", "h": "ケイスケ・ホンダ"}
-dic = {"a": "グー", "b": "チョキ", "c": "パー"}
-print("誰と戦う？")
-print("n=一般人 h=ケイスケ・ホンダ")
-player = input('>>> ')
-player = player.lower()
-print("じゃんけん！！")
-print("a=グー b=チョキ c=パー a,b,cから選んでね")
 
-user = input('>>> ')
-user = user.lower()
+def main():
+    """メイン処理
+    """
 
-try:
+    player_dic = {"n": "一般人", "h": "ケイスケ・ホンダ"}
+    dic = {"a": "グー", "b": "チョキ", "c": "パー"}
+
+    print("誰と戦う？")
+    print(" ".join(list(map(lambda x: f"{x[0]}={x[1]}", player_dic.items()))))
+    player = input('>>> ')
+    player = player.lower()
+    if player not in player_dic:
+        separator = ","
+        print(f"{separator.join(player_dic.keys())} から選んでね")
+        return
+
+    print("じゃんけん！！")
+    print(" ".join(list(map(lambda x: f"{x[0]}={x[1]}", dic.items()))))
+    user = input('>>> ')
+    user = user.lower()
+    if user not in dic:
+        separator = ","
+        print(f"{separator.join(dic.keys())} から選んでね")
+        return
+
     player_choice = player_dic[player]
     user_choice = dic[user]
 
-    choice_list = ["a", "b", "c"]
+    choice_list = list(dic.keys())
     pc = dic[random.choice(choice_list)]
 
     draw = 'DRAW'
     win = 'You Win!!'
     lose = 'You Lose!!'
-    if player == 'h' :
-        pc ="ペプシコーラ"
+    if player == 'h':
+        pc = "ペプシコーラ"
         judge = lose
-    else :
+    else:
         if user_choice == pc:
             judge = draw
         else:
@@ -49,5 +62,7 @@ try:
     if judge == lose:
         print("何で負けたか明日までに考えといてください。")
         print("ほないただきます。ﾌﾟｼｬｰｰｰｰ！！！！！")
-except:
-    print("a,b,c から選んでね")
+
+
+if __name__ == "__main__":
+    main()

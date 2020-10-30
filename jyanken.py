@@ -37,9 +37,8 @@ try:
     print("君 VS 相手")
     print("%s VS %s" % (user_choice,pc))
     print("%s" % judge)
-
     if judge == lose:
         print("何で負けたか明日までに考えといてください。")
         print("ほないただきます。ﾌﾟｼｬｰｰｰｰ！！！！！")
-    except:
+except:
     print("a,b,c から選んでね")

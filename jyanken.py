@@ -33,10 +33,10 @@ try:
                 judge = win
             else:
                 judge = lose
-            
+
     print("君 VS 相手")
-    print("%s VS %s" % (user_choice,pc))
-    print("%s" % judge)
+    print(f"{user_choice} VS {pc}")
+    print(judge)
     if judge == lose:
         print("何で負けたか明日までに考えといてください。")
         print("ほないただきます。ﾌﾟｼｬｰｰｰｰ！！！！！")

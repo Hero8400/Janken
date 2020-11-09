@@ -1,9 +1,14 @@
+import configparser
 import gspread
 import json
 from oauth2client.service_account import ServiceAccountCredentials
 
-JSONF = "----------------------.json"
-SPREAD_SHEET_KEY = "------------------------------"
+#設定ファイル取得
+config_ini = configparser.ConfigParser()
+config_ini.read('./config.ini', 'UTF-8')
+JSONF = config_ini['spread']['key']
+SPREAD_SHEET_KEY = config_ini['spread']['spreadKey']
+
 
 def connect_gspread():
     #spreadsheetsとdriveの2つのAPIを指定する

@@ -1,23 +1,26 @@
 import configparser
+import myConfig
 import gspread
 import json
 from oauth2client.service_account import ServiceAccountCredentials
 
 #設定ファイル取得
-config_ini = configparser.ConfigParser()
-config_ini.read('./config.ini', 'UTF-8')
-JSONF = config_ini['spread']['key']
-SPREAD_SHEET_KEY = config_ini['spread']['spreadKey']
+# config_ini = configparser.ConfigParser()
+# config_ini.read('./config.ini', 'UTF-8')
+# JSONF = config_ini['spread']['key']
+# SPREAD_SHEET_KEY = config_ini['spread']['spreadKey']
 
 
 def connect_gspread():
     #spreadsheetsとdriveの2つのAPIを指定する
     scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
     #認証情報を設定する
-    credentials = ServiceAccountCredentials.from_json_keyfile_name(JSONF, scope)
+    # credentials = ServiceAccountCredentials.from_json_keyfile_name(JSONF, scope)
+    credentials = ServiceAccountCredentials.from_json_keyfile_name(myConfig.SPREAD['KEY'], scope)
     gc = gspread.authorize(credentials)
     #スプレッドシートキーを用いて、sheet1にアクセスする
-    worksheet = gc.open_by_key(SPREAD_SHEET_KEY).sheet1
+    # worksheet = gc.open_by_key(SPREAD_SHEET_KEY).sheet1
+    worksheet = gc.open_by_key(myConfig.SPREAD['SPREAD_KEY']).sheet1
     return worksheet
 
 def main():

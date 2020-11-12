@@ -36,13 +36,7 @@ def jankenRecord(resultDic):
         resultDic["pc"]
         ]
     ws.append_row(datas)
-    #ws.update_cell(3, 1, resultDic["datetime"])
-    #ws.update_cell(3, 2, resultDic["player_choice"])
-    #ws.update_cell(3, 3, resultDic["judge"])
-    #ws.update_cell(3, 4, resultDic["user_choice"])
-    #ws.update_cell(3, 5, resultDic["pc"])
-
-
+    
 def main():
     # jsonファイル(秘密鍵)と対象のspreadSheetを取得
     ws = connect_gspread()

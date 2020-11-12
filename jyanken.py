@@ -9,8 +9,9 @@ judge_dic = {"draw": "DRAW", "win": "You WIN!!", "lose": "You LOSE!!"}
 player_dic = {"n": "一般人", "h": "ケイスケ・ホンダ"}
 dic = {"a": "グー", "b": "チョキ", "c": "パー"}
 
-
 def choicePlayer():
+    """ 対戦相手の選択 """
+
     print("誰と戦う？")
     print(" ".join(list(map(lambda x: f"{x[0]}={x[1]}", player_dic.items()))))
     player = input('>>> ')
@@ -18,6 +19,8 @@ def choicePlayer():
     return player
 
 def janken():
+    """ グー、チョキ、パーを選択 """
+
     print("じゃんけん！！")
     print(" ".join(list(map(lambda x: f"{x[0]}={x[1]}", dic.items()))))
     user = input('>>> ')
@@ -25,6 +28,8 @@ def janken():
     return user
 
 def gameResult(user_choice, pc, player):
+    """ 対戦結果を判定 """
+
     if player == 'h':
         pc = "ペプシコーラ"
         judge = judge_dic["lose"]
@@ -46,8 +51,8 @@ def gameResult(user_choice, pc, player):
 
 
 def main():
-    """メイン処理
-    """
+    """メイン処理 """
+
     player = choicePlayer()
     if player not in player_dic:
         separator = ","
@@ -86,7 +91,7 @@ def main():
         "pc":pc
         }
     spreadAutoWrite.jankenRecord(resultDic)
-
+    print("対戦成績を記録しました。")
 
 if __name__ == "__main__":
     main()

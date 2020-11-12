@@ -2,6 +2,7 @@ import configparser
 import myConfig
 import gspread
 import json
+import datetime
 from oauth2client.service_account import ServiceAccountCredentials
 
 #設定ファイル取得
@@ -22,6 +23,25 @@ def connect_gspread():
     # worksheet = gc.open_by_key(SPREAD_SHEET_KEY).sheet1
     worksheet = gc.open_by_key(myConfig.SPREAD['SPREAD_KEY']).sheet1
     return worksheet
+
+def jankenRecord(resultDic):
+    # jsonファイル(秘密鍵)と対象のspreadSheetを取得
+    ws = connect_gspread()
+    #対戦結果を書き込み
+    datas = [
+        resultDic["datetime"], 
+        resultDic["player_choice"],
+        resultDic["judge"],
+        resultDic["user_choice"],
+        resultDic["pc"]
+        ]
+    ws.append_row(datas)
+    #ws.update_cell(3, 1, resultDic["datetime"])
+    #ws.update_cell(3, 2, resultDic["player_choice"])
+    #ws.update_cell(3, 3, resultDic["judge"])
+    #ws.update_cell(3, 4, resultDic["user_choice"])
+    #ws.update_cell(3, 5, resultDic["pc"])
+
 
 def main():
     # jsonファイル(秘密鍵)と対象のspreadSheetを取得

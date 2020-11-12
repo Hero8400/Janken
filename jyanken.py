@@ -1,10 +1,28 @@
 # -*- coding: utf-8 -*-
 
 import random
+import datetime
+import spreadAutoWrite
 
 
 judge_dic = {"draw": "DRAW", "win": "You WIN!!", "lose": "You LOSE!!"}
+player_dic = {"n": "一般人", "h": "ケイスケ・ホンダ"}
+dic = {"a": "グー", "b": "チョキ", "c": "パー"}
 
+
+def choicePlayer():
+    print("誰と戦う？")
+    print(" ".join(list(map(lambda x: f"{x[0]}={x[1]}", player_dic.items()))))
+    player = input('>>> ')
+    player = player.lower()
+    return player
+
+def janken():
+    print("じゃんけん！！")
+    print(" ".join(list(map(lambda x: f"{x[0]}={x[1]}", dic.items()))))
+    user = input('>>> ')
+    user = user.lower() 
+    return user
 
 def gameResult(user_choice, pc, player):
     if player == 'h':
@@ -30,23 +48,13 @@ def gameResult(user_choice, pc, player):
 def main():
     """メイン処理
     """
-
-    player_dic = {"n": "一般人", "h": "ケイスケ・ホンダ"}
-    dic = {"a": "グー", "b": "チョキ", "c": "パー"}
-
-    print("誰と戦う？")
-    print(" ".join(list(map(lambda x: f"{x[0]}={x[1]}", player_dic.items()))))
-    player = input('>>> ')
-    player = player.lower()
+    player = choicePlayer()
     if player not in player_dic:
         separator = ","
         print(f"{separator.join(player_dic.keys())} から選んでね")
         return
 
-    print("じゃんけん！！")
-    print(" ".join(list(map(lambda x: f"{x[0]}={x[1]}", dic.items()))))
-    user = input('>>> ')
-    user = user.lower()
+    user = janken()
     if user not in dic:
         separator = ","
         print(f"{separator.join(dic.keys())} から選んでね")
@@ -66,6 +74,18 @@ def main():
     if judge == judge_dic["lose"]:
         print("何で負けたか明日までに考えといてください。")
         print("ほないただきます。ﾌﾟｼｬｰｰｰｰ！！！！！")
+    
+    print("対戦成績を記録します。")
+
+    dateTime = datetime.datetime.now()
+    resultDic = {
+        "datetime":dateTime.strftime('%Y年%m月%d日 %H:%M:%S'),
+        "player_choice":player_choice,
+        "judge":judge,
+        "user_choice":user_choice,
+        "pc":pc
+        }
+    spreadAutoWrite.jankenRecord(resultDic)
 
 
 if __name__ == "__main__":

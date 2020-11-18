@@ -17,6 +17,13 @@
             "request": "launch",
             "program": "${workspaceRoot}/jyanken.py",
             "console": "integratedTerminal"
+        },
+        {
+            "name": "blackjack",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceRoot}/blackjack.py",
+            "console": "integratedTerminal"
         }
     ]
 }

@@ -19,7 +19,8 @@ from typing import List
 import random
 import pprint
 
-#2020/11/18 目標：カードを一枚引くとこまで。
+# 2020/11/18 目標：カードを一枚引くとこまで。
+
 
 class Suit(Enum):
     HEART = ("♥")
@@ -30,43 +31,70 @@ class Suit(Enum):
     def __init__(self, icon):
         self.icon = icon
 
+
 class Card:
     # マーク
     suit: Suit
     # 数字
     num: int
 
-    #コンストラクタの定義
+    # コンストラクタの定義
     def __init__(self, suit: Suit, num: int):
         self.suit = suit
         self.num = num
 
-#山札
+
+class Player:
+    # プレイヤー名
+    name: str
+
+    # 手札
+    hands: List[Card]
+
+    def __init__(self, name: str):
+        self.name = name
+        self.hands = []
+
+    def getTotalPoint(self):
+        return sum(map(lambda x: x.num, self.hands))
+
+    def pick(self):
+        global Deck
+        self.hands.append(Deck.pop(0))
+        print(f"{self.name}が引いたカード:{vars(self.hands[-1])}")
+        print(f"現在の合計値：{self.getTotalPoint()}")
+
+
+# 山札
 Deck: List[Card]
-#手札
-PlayerHands: List[Card]
+# プレイヤー
+You: Player
+
 
 def main():
     global Deck
+    global You
+
     setUp()
     suit = Suit.HEART
     num = 3
-    card = Card(suit,num)
+    card = Card(suit, num)
     print(f"選んだカード：{card.suit.icon} の {card.num}")
-    #pprint.pprint(deck)
+    # pprint.pprint(deck)
 
-    #↓Python流do_while文
+    # ↓Python流do_while文
     while True:
-        pick()
+        You.pick()
         if not choiceAction():
             break
-    #print(pick.suit)
+    # print(pick.suit)
+
 
 def setUp():
     global Deck
-    global PlayerHands
+    global You
     Deck = []
-    PlayerHands = []
+    You = Player("You")
     for suit in Suit:
         for number in range(13):
             card = Card(suit, number + 1)
@@ -74,15 +102,17 @@ def setUp():
 
     random.shuffle(Deck)
 
+
 def choiceAction() -> bool:
-    point: int = sum(map(lambda x: x.num, PlayerHands))
+    global You
+    point: int = You.getTotalPoint()
     if point > 21:
         print("bust!!!!!!!!")
         return False
-    elif point ==  21:
+    elif point == 21:
         print("BlackJack!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         return False
-    
+
     print("更にカードを引きますか？[y/n]")
     action = input('>>> ')
 
@@ -92,14 +122,6 @@ def choiceAction() -> bool:
     #     return True
     # else:
     #     return False
-
-def pick():
-    global Deck
-    global PlayerHands
-    PlayerHands.append(Deck.pop(0))
-    # pick = Deck.pop(random.randint(0, len(Deck - 1)))
-    print(f"あなたが引いたカード:{vars(PlayerHands[-1])}")
-    print(f"現在の合計値：{sum(map(lambda x: x.num, PlayerHands))}")
 
 
 if __name__ == "__main__":
